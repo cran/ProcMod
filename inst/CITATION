@@ -1,0 +1,21 @@
+bibentry(
+  bibtype = "Article",
+  title        = "Assessing the shared variation among high-dimensional data matrices: a modified version of the Procrustean correlation coefficient",
+  author       = c(person(given = "Eric",
+                          family = "Coissac"),
+                   person(given = "Christelle",
+                          family = "Gonindard-Melodelima")),
+  journal      = "bioRxiv",
+  year         = "2019",
+  doi          = "10.1101/842070",
+
+  header       = "To cite ProcMod in publications use:",
+  textVersion  =
+    paste(
+      "Coissac E. and Gonindard-Melodelima C. (2019).",
+      "Assessing the shared variation among high- dimensional data matrices: a modified version of the procrustean correlation coefficient.",
+      "bioRxiv",
+      "doi:10.1101/842070"
+    )
+)
+
