@@ -3,7 +3,6 @@
 \docType{package}
 \name{procmod}
 \alias{procmod}
-\alias{procmod-package}
 \title{Informative Procrustean Matrix Correlation}
 \description{
 Estimates corrected Procrustean correlation between

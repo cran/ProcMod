@@ -8,7 +8,17 @@
 \alias{soil}
 \alias{geography}
 \title{DNA metabarcoding Australia South-North Gradient}
-\format{five data.frame of 21 rows}
+\format{
+five data.frame of 21 rows
+
+An object of class \code{data.frame} with 21 rows and 2150 columns.
+
+An object of class \code{data.frame} with 21 rows and 6 columns.
+
+An object of class \code{data.frame} with 21 rows and 12 columns.
+
+An object of class \code{data.frame} with 21 rows and 2 columns.
+}
 \usage{
 data(eukaryotes)
 
@@ -57,7 +67,7 @@ The gradient is constituted of 21 locations.
      }
   }}}
 
-\item{soil}{s a 21 x 6 \code{data.frame} describing soil chemistery
+ \item{soil}{s a 21 x 6 \code{data.frame} describing soil chemistery
   at each site.
   Each variable is reduced and centered
   \describe{
@@ -75,7 +85,7 @@ The gradient is constituted of 21 locations.
   \item{NLg}{Logarithm of the nitrogen concentration}
   }}
 
-\item{geography}{}
+ \item{geography}{}
 }
 }
 \author{

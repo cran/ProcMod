@@ -4,8 +4,11 @@
 \alias{corls_test}
 \title{Monte-Carlo Test on the sum of the singular values of a procustean rotation.}
 \usage{
-corls_test(..., permutations = permute::how(nperm = 999),
-  p_adjust_method = "holm")
+corls_test(
+  ...,
+  permutations = permute::how(nperm = 999),
+  p_adjust_method = "holm"
+)
 }
 \arguments{
 \item{...}{the set of matrices or a \code{\link[ProcMod]{procmod_frame}}
@@ -34,8 +37,6 @@ C <- simulate_correlation(B,10,r2=0.6)
 # Computes the correlation matrix
 data <- procmod_frame(A = A, B = B, C = C)
 
-corls_test(A, B, permutations = 100)
-corls_test(B, C, permutations = 100)
 corls_test(data, permutations = 100)
 
 }

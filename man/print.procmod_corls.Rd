@@ -23,7 +23,7 @@ C <- simulate_correlation(B,10,r2=0.6)
 
 # Computes the correlation matrix
 data <- procmod_frame(A = A, B = B, C = C)
-cls <- corls(data, nrand = 1000)
+cls <- corls(data, nrand = 100)
 
 print(cls)
 

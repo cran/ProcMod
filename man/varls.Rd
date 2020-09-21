@@ -3,14 +3,11 @@
 \name{varls}
 \alias{varls}
 \alias{corls}
-\alias{corls_partial}
 \title{Procrustean Correlation, and Variance / Covariance Matrices.}
 \usage{
 varls(..., nrand = 100, p_adjust_method = "holm")
 
 corls(..., nrand = 100, p_adjust_method = "holm")
-
-corls_partial(..., nrand = 100)
 }
 \arguments{
 \item{...}{the set of matrices or a \code{\link[ProcMod]{procmod_frame}}
@@ -52,8 +49,8 @@ a \code{procmod_varls} object which corresponds to a numeric
                method specified by the \code{p_adjust_method} parameter.
 }
 \description{
-\code{varls}, \code{corls}, \code{corls_partial} compute the procrustean
-variance / covariance, correlation, or partial correlation matrices
+\code{varls}, \code{corls} compute the procrustean
+variance / covariance, or correlation matrices
 between a set of real matrices and \code{\link[stats]{dist}} objects.
 }
 \details{
@@ -64,9 +61,6 @@ Both the X and Y matrices must have the same number of rows.
 The variances and covariances and correlations are corrected
 to avoid over fitting \insertCite{Coissac-Eric:19:00}{ProcMod}.
 
-Partial correlation coefficients are computed by inverting the correlation followed
-by a normalisation by the diagonal of the inverted matrix.
-
 The inputs must be numeric matrices or \code{\link[stats]{dist}} object.
 The set of input matrices can be aggregated un a
 \code{\link[ProcMod]{procmod_frame}}.
@@ -76,12 +70,6 @@ orthogonal space using the \code{\link[ProcMod]{ortho}} function.
 
 The denominator n - 1 is used which gives an unbiased estimator of the
 (co)variance for i.i.d. observations.
-
-Scaling a covariance matrix into a correlation one can be achieved in many ways,
-mathematically most appealing by multiplication with a diagonal matrix from left
-and right, or more efficiently by using sweep(.., FUN = "/") twice.
-The \code{\link[stats]{cov2cor}} function is even a bit more efficient,
-and provided mostly for didactical reasons.
 }
 \examples{
 # Build Three matrices of 3 rows.
@@ -90,18 +78,13 @@ B <- simulate_matrix(10,5)
 C <- simulate_correlation(B,10,r2=0.6)
 
 # Computes the variance covariance matrix
-varls(A, B, C)
 varls(A = A, B = B, C = C)
 
 data = procmod_frame(A = A, B = B, C = C)
 varls(data)
 
 # Computes the correlation matrix
-corls(data, nrand = 500)
-
-# Computes the partial correlation matrix
-corls_partial(data)
-corls_partial(data, nrand = 0)
+corls(data, nrand = 100)
 
 }
 \references{

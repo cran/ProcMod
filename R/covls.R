@@ -30,27 +30,10 @@ if (.has_doParallel) require(doParallel)
 #'
 .Trace <- function(X) sum(diag(X))
 
-#' Convert a covariance matrix to a correlation matric
-#'
-#' @param c a square covariance/variance matrix
-#' @return correlation matrix corresponding to \code{c}
-#'
-#' @note Internal function do not use.
-#'
-#' @rdname internal.var2cor
-#' @author Eric Coissac
-#' @author Christelle Gonindard-Melodelima
-#'
-.var2cor <- function(c) {
-  v <- sqrt(diag(c))
-  vv <- v %o% v
-  c / vv
-}
-
 #' Procrustean Correlation, and Variance / Covariance Matrices.
 #'
-#' \code{varls}, \code{corls}, \code{corls_partial} compute the procrustean
-#' variance / covariance, correlation, or partial correlation matrices
+#' \code{varls}, \code{corls} compute the procrustean
+#' variance / covariance, or correlation matrices
 #' between a set of real matrices and \code{\link[stats]{dist}} objects.
 #'
 #' Procrustean covariance between two matrices X and Y, is defined as the sum
@@ -59,9 +42,6 @@ if (.has_doParallel) require(doParallel)
 #'
 #' The variances and covariances and correlations are corrected
 #' to avoid over fitting \insertCite{Coissac-Eric:19:00}{ProcMod}.
-#'
-#' Partial correlation coefficients are computed by inverting the correlation followed
-#' by a normalisation by the diagonal of the inverted matrix.
 #'
 #' The inputs must be numeric matrices or \code{\link[stats]{dist}} object.
 #' The set of input matrices can be aggregated un a
@@ -72,12 +52,6 @@ if (.has_doParallel) require(doParallel)
 #'
 #' The denominator n - 1 is used which gives an unbiased estimator of the
 #' (co)variance for i.i.d. observations.
-#'
-#' Scaling a covariance matrix into a correlation one can be achieved in many ways,
-#' mathematically most appealing by multiplication with a diagonal matrix from left
-#' and right, or more efficiently by using sweep(.., FUN = "/") twice.
-#' The \code{\link[stats]{cov2cor}} function is even a bit more efficient,
-#' and provided mostly for didactical reasons.
 #'
 #' @references{
 #'  \insertRef{Gower:71:00}{ProcMod}
@@ -129,29 +103,20 @@ if (.has_doParallel) require(doParallel)
 #' C <- simulate_correlation(B,10,r2=0.6)
 #'
 #' # Computes the variance covariance matrix
-#' varls(A, B, C)
 #' varls(A = A, B = B, C = C)
 #'
 #' data = procmod_frame(A = A, B = B, C = C)
 #' varls(data)
 #'
 #' # Computes the correlation matrix
-#' corls(data, nrand = 500)
-#'
-#' # Computes the partial correlation matrix
-#' corls_partial(data)
-#' corls_partial(data, nrand = 0)
+#' corls(data, nrand = 100)
 #'
 #' @author Eric Coissac
 #' @author Christelle Gonindard-Melodelima
 #'
 #' @seealso \code{\link[stats]{p.adjust}}
 #'
-#' @rdname varls
-#' @name varls
 #' @aliases varls
-#' @aliases corls
-#' @aliases corls_partial
 #' @export
 varls <- function(...,
                   nrand = 100,
@@ -229,8 +194,7 @@ varls <- function(...,
           s1_cov_xxs[i, j] <- sum(svd(crossprod(r_xs[[i]],r_ys[[j]]))$d)
 
       s1_cov_xxs  / n1
-
-                         }
+    }
 
     dim(s_cov_xxs) = c(nx, nx, nrand)
 
@@ -245,12 +209,12 @@ varls <- function(...,
       n_r_greater <- n_r_greater + (s_cov_xxs[, , k] >= cov_xxs)
 
     r_cov_xxs <- as.matrix(Matrix::forceSymmetric(r_cov_xxs, uplo = "U"))
-    cov_xxs <- pmax(cov_xxs - r_cov_xxs, 0)
+    cov_xxs <- cov_xxs - r_cov_xxs
 
     colnames(r_cov_xxs) <- x_names
     rownames(r_cov_xxs) <- x_names
 
-    p_values <- n_r_greater / nrand
+    p_values <- (n_r_greater + 1) / (nrand + 1)
 
     c_p_values <- p.adjust(p_values[upper.tri(p_values, diag = FALSE)],
       method = p_adjust_method
@@ -275,6 +239,7 @@ varls <- function(...,
 
 
 #' @rdname varls
+#' @aliases corls
 #' @export
 corls <- function(..., nrand = 100,
                   p_adjust_method = "holm") {
@@ -282,9 +247,7 @@ corls <- function(..., nrand = 100,
     nrand = nrand,
     p_adjust_method = p_adjust_method
   )
-  s <- sqrt(diag(cov))
-  vv <- s %o% s
-  rls <- cov / vv
+  rls <- cov2cor(cov)
   class(rls) <- "matrix"
 
 
@@ -293,21 +256,6 @@ corls <- function(..., nrand = 100,
   }
 
   make_subS3Class(rls, "procmod_corls")
-}
-
-#' @rdname varls
-#' @export
-corls_partial <- function(..., nrand = 100) {
-  rls <- corls(..., nrand = nrand)
-  C <- solve(rls)
-  S <- sqrt(diag(C))
-  D <- S %o% S
-  rp <- C / D
-
-  attr(rp, "nrand") <- attr(rls, "nrand")
-  attr(rp, "rcovls") <- attr(rls, "rcovls")
-
-  make_subS3Class(rp, "procmod_corls")
 }
 
 #' Print procrustean Variance / Covariance Matrix.
@@ -324,7 +272,7 @@ corls_partial <- function(..., nrand = 100) {
 #'
 #' # Computes the variance covariance matrix
 #' data <- procmod_frame(A = A, B = B, C = C)
-#' v <- varls(data, nrand = 1000)
+#' v <- varls(data, nrand = 100)
 #'
 #' print(v)
 #'
@@ -363,7 +311,7 @@ print.procmod_varls <- function(x, ...) {
 #'
 #' # Computes the variance covariance matrix
 #' data <- procmod_frame(A = A, B = B, C = C)
-#' v <- varls(data, nrand = 1000)
+#' v <- varls(data, nrand = 100)
 #'
 #' names(v)
 #'
@@ -394,7 +342,7 @@ names.procmod_varls <- function(x) {
 #'
 #' # Computes the correlation matrix
 #' data <- procmod_frame(A = A, B = B, C = C)
-#' cls <- corls(data, nrand = 1000)
+#' cls <- corls(data, nrand = 100)
 #'
 #' print(cls)
 #'
@@ -435,7 +383,7 @@ print.procmod_corls <- function(x, ...) {
 #'
 #' # Computes the correlation matrix
 #' data <- procmod_frame(A = A, B = B, C = C)
-#' cls <- corls(data, nrand = 1000)
+#' cls <- corls(data, nrand = 100)
 #'
 #' names(cls)
 #'

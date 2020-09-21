@@ -16,7 +16,6 @@
 #' @author Eric Coissac
 #'
 #' @docType package
-#' @importFrom Rdpack reprompt
 NULL
 
 #' DNA metabarcoding Australia South-North Gradient

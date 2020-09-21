@@ -4,8 +4,13 @@
 \alias{procmod_frame}
 \title{The procmod_frame data structure.}
 \usage{
-procmod_frame(..., row_names = NULL, check_rows = TRUE,
-  reorder_rows = TRUE, contrasts_arg = NULL)
+procmod_frame(
+  ...,
+  row_names = NULL,
+  check_rows = TRUE,
+  reorder_rows = TRUE,
+  contrasts_arg = NULL
+)
 }
 \arguments{
 \item{...}{a set of objects to aggregate into a

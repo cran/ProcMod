@@ -75,8 +75,6 @@ NULL
 #' # Computes the correlation matrix
 #' data <- procmod_frame(A = A, B = B, C = C)
 #'
-#' corls_test(A, B, permutations = 100)
-#' corls_test(B, C, permutations = 100)
 #' corls_test(data, permutations = 100)
 #'
 #' @seealso \code{\link[stats]{p.adjust}}
@@ -141,7 +139,7 @@ corls_test <- function(...,
        rcov >= lcov)
   }
 
-  p_values <- ngreater / npermutation
+  p_values <- (ngreater + 1) / (npermutation + 1)
   diag(p_values) <- 0
 
   c_p_values <- p.adjust(p_values[upper.tri(p_values,diag = FALSE)],

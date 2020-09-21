@@ -23,7 +23,7 @@ C <- simulate_correlation(B,10,r2=0.6)
 
 # Computes the variance covariance matrix
 data <- procmod_frame(A = A, B = B, C = C)
-v <- varls(data, nrand = 1000)
+v <- varls(data, nrand = 100)
 
 print(v)
 

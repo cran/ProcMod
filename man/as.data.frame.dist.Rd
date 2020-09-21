@@ -4,8 +4,7 @@
 \alias{as.data.frame.dist}
 \title{Converts a \code{dist} object to a \code{data.frame} object.}
 \usage{
-\method{as.data.frame}{dist}(x, row.names = NULL, optional = FALSE,
-  ...)
+\method{as.data.frame}{dist}(x, row.names = NULL, optional = FALSE, ...)
 }
 \arguments{
 \item{x}{the \code{dist} object to be converted}
