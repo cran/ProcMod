@@ -15,6 +15,7 @@
 #' @author Christelle Gonindard-Melodelima
 #' @author Eric Coissac
 #'
+#' @importFrom Rdpack reprompt
 #' @docType package
 NULL
 
