@@ -258,6 +258,8 @@ corls <- function(..., nrand = 100,
   make_subS3Class(rls, "procmod_corls")
 }
 
+
+
 #' Print procrustean Variance / Covariance Matrix.
 #'
 #' @param x a \code{procmod_varls}

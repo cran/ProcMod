@@ -1,14 +1,14 @@
-42f5660bbad9dfc5bae0691f6ebfe1a7 *DESCRIPTION
+32efca7d022df7c25f386364136887ec *DESCRIPTION
 3c205fe24fe1d009b2838d20f592c6a0 *NAMESPACE
 b46b9247fa3bacbf499b4eb6a02cb953 *R/corls_test.R
-37d10518b0d7d3267d36ba5647fbb2a3 *R/covls.R
+a2e936eb990cf02eac60a894a84ff85e *R/covls.R
 aaa74ac2ea7702b0f5653998b084f88e *R/internals.R
 2a6f669c4a8968a1c1a2ec38def516df *R/multivariate.R
 074cf060ec9c334e539ce83d5089425a *R/procmod.R
 f1023e0581767e5e55bdba4ada0ae978 *R/procmod_frame.R
 5f097fea8fb28f36ba446a613e95af86 *R/procuste.R
 85ac444be37234765fc3c4c50b265414 *R/simulate.R
-039b255be64db08e8223e373f2825c30 *build/partial.rdb
+408725be52576fa8f271a7a7cc585447 *build/partial.rdb
 432f9119974fed70e841f6cc30fdd603 *data/bacteria.rda
 714f6dabc79b0e75b92e10689f7bab0d *data/climat.rda
 513d56aad5446a3503e3976b28130cbb *data/eukaryotes.rda

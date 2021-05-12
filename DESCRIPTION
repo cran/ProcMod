@@ -1,10 +1,10 @@
 Package: ProcMod
 Type: Package
 Title: Informative Procrustean Matrix Correlation
-Version: 1.0.7
+Version: 1.0.8
 Author: Eric Coissac, Christelle Gonindard-Melodelima
 Maintainer: Eric Coissac <eric.coissac@metabarcoding.org>
-Description: Estimates corrected Procrustean correlation between matrices for removing overfitting effect. Coissac Eric and Gonindard-Melodelima Christelle (2019) <bioarXiv:10.1101/842070>.
+Description: Estimates corrected Procrustean correlation between matrices for removing overfitting effect. Coissac Eric and Gonindard-Melodelima Christelle (2019) <doi:10.1101/842070>.
 License: CeCILL-2
 Encoding: UTF-8
 LazyData: true
@@ -16,6 +16,6 @@ RdMacros: Rdpack
 Collate: 'internals.R' 'procmod_frame.R' 'multivariate.R' 'procmod.R'
         'covls.R' 'corls_test.R' 'procuste.R' 'simulate.R'
 NeedsCompilation: no
-Packaged: 2020-10-02 08:43:34 UTC; coissac
+Packaged: 2021-05-11 13:33:05 UTC; coissac
 Repository: CRAN
-Date/Publication: 2020-10-02 10:52:06 UTC
+Date/Publication: 2021-05-12 06:52:11 UTC
